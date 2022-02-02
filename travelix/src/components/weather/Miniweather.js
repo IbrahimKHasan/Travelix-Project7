@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./wstyles/miniweather.css";
 import Header from "./components/Header";
 import WeatherAndForecast from "./components/WeatherAndForecast";
+import Weathermini from "./components/Weathermini";
 import Loader from "./components/Loader";
 import Warning from "./components/Warning";
 import getAddressOfCoordinates from "./api/reverseGeocoding";
@@ -36,13 +37,13 @@ function Weather() {
             city: res.data.results[0].components.city_district,
             town: res.data.results[0].components.town,
             state: res.data.results[0].components.state_code,
-            country: res.data.results[0].components.country_code
+            country: res.data.results[0].components.country_code,
           });
         })
         .then(() =>
           setCoordinates({
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           })
         )
         .catch((error) => showWarning());
@@ -79,7 +80,7 @@ function Weather() {
           city: res.data.results[0].components.city,
           town: res.data.results[0].components.town,
           state: res.data.results[0].components.state_code,
-          country: res.data.results[0].components.country_code
+          country: res.data.results[0].components.country_code,
         });
       })
       .catch((error) => showWarning());
@@ -101,24 +102,22 @@ function Weather() {
     loading: () => <Loader />,
     warning: () => <Warning />,
     weatherAndForecast: () => (
-      <WeatherAndForecast
+      <Weathermini
         weatherInfo={weatherAndForecastInfo}
         location={locationInfo}
       />
-    )
+    ),
   };
 
   return (
     <div className="App mini_app">
       <div className="App__container mini_app_container">
         <>
-        {
-          window.location.href.endsWith("/weather")
-          ?
-          <Header searchCity={searchCity} />
-          :
-          ""
-        }
+          {window.location.href.endsWith("/weather") ? (
+            <Header searchCity={searchCity} />
+          ) : (
+            ""
+          )}
           {Main[contentState]()}
         </>
       </div>

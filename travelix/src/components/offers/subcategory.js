@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import CategoryItem from "./CategoryItem";
-import axios from "axios";
 
 class Subcategory extends Component {
   componentDidMount() {
@@ -8,6 +7,7 @@ class Subcategory extends Component {
   }
 
   render() {
+    this.props.ScrollUp();
     return (
       <>
         <div className="home">
@@ -18,7 +18,9 @@ class Subcategory extends Component {
             alt="user profile"
           />
           <div className="home_content">
-            <div className="home_title">Services</div>
+            <div className="home_title">
+              {localStorage.getItem("subCategoryName")}
+            </div>
           </div>
         </div>
         {/* // <!-- Offers --> */}

@@ -54,7 +54,14 @@ class login extends Component {
 
         if (res.data.id != null) {
           localStorage.setItem("users", JSON.stringify(obj));
-          window.location.href = "/";
+          if(localStorage.getItem("url"))
+          {
+            localStorage.removeItem("url");
+            window.location.href = "http://localhost:3000/service";
+          }
+          else {
+            window.location.href = "/";
+          }
         }
       })
       .catch((error) => {
@@ -62,8 +69,11 @@ class login extends Component {
       });
   }
   render() {
+    this.props.ScrollUp()
     return (
+      <div className="cardbg">
       <div className="card ">
+      <div className="card-bg">
         <Card className="cardStyle ">
           <CardContent>
             <div className="signupText"><strong>LOGIN</strong></div>
@@ -87,6 +97,8 @@ class login extends Component {
           <small id="loginError" style={{color:'red',fontWeight:'bold',marginLeft:'135px',fontSize:'14px'}}>{this.state.error}</small>
         </Card>
         
+      </div>
+      </div>
       </div>
     );
   }
